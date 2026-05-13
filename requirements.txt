@@ -1,0 +1,7 @@
+openai
+google-generativeai
+huggingface_hub
+python-dotenv
+textstat
+textblob
+requests
