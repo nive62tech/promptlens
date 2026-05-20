@@ -9,7 +9,7 @@ load_dotenv()
 
 CONNECTORS = {
     "gemini-pro": query_gemini,
-    "mistral-7b": query_huggingface,
+    "qwen-7b": query_huggingface,
 }
 
 METRICS = {

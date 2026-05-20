@@ -1,7 +1,7 @@
 from backend.runner import run_evaluation
 
 prompt = "Explain what a black hole is in simple terms"
-models = ["mistral-7b"]
+models = ["qwen-7b"]
 metrics = ["length", "readability", "sentiment"]
 
 results = run_evaluation(prompt, models, metrics)
