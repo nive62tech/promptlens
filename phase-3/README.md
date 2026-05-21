@@ -1,102 +1,92 @@
 # 🎨 Phase 3 — Web UI
 
-> **Goal:** Build a clean, beginner-friendly web interface so non-developers can use PromptLens without touching a terminal. This is what makes the project accessible to researchers, students, and writers.
+> **Goal:** A clean, beginner-friendly web interface so anyone can use
+> PromptLens without touching a terminal.
 
 ---
 
-## 📦 What You'll Build
+## ✅ What Was Built
 
-- A single-page HTML/CSS/JS frontend
-- Prompt input box
-- Model selector (checkboxes)
-- Metric selector (checkboxes)
-- Side-by-side results comparison table
-- Score visualization (progress bars / color coding)
-- "Copy response" button per model
+| Feature | Description |
+|---|---|
+| Prompt box | Large textarea for entering the prompt |
+| Model picker | Toggle which LLMs to test against |
+| Metric picker | Choose which metrics to score on |
+| Run button | Sends to backend, shows loading state |
+| Results panel | Side-by-side model responses with scores |
+| Score bars | Visual progress bars for readability and length |
+| Sentiment badge | Color-coded positive / neutral / negative |
+| Copy button | One-click copy for each model response |
+| Keyboard shortcut | Ctrl+Enter to run evaluation |
 
 ---
 
-## 🗂️ Folder Structure (Phase 3)
-
-```
-promptlens/
-├── backend/
-├── frontend/
-│   ├── index.html        ← Main UI page
-│   ├── style.css         ← Styling
-│   ├── app.js            ← Fetch calls to backend API
-│   └── assets/
-│       └── logo.svg
-└── README.md
-```
+## 🗂️ Files Added in This Phase
+frontend/
+├── index.html     ← Main UI page
+├── style.css      ← Dark theme styling
+└── app.js         ← Fetch calls to backend API
 
 ---
 
 ## ⚙️ Setup
 
-No npm, no build step. Just open the file:
+No npm, no build step needed.
 
 ```bash
-# Make sure backend is running first (from Phase 2)
-uvicorn backend.main:app --reload --port 8000
+# Step 1 — Start the backend first
+python -m uvicorn backend.main:app --reload --port 8000
 
-# Then open the UI
-open frontend/index.html
-# or just drag it into your browser
+# Step 2 — Open the UI
+# Just go to this URL in Chrome:
+http://localhost:8000
 ```
 
 ---
 
-## 🖥️ UI Features
+## 🖥️ How to Use
 
-| Feature | Description |
-|---|---|
-| **Prompt Box** | Large textarea for entering the prompt |
-| **Model Picker** | Toggle which LLMs to test against |
-| **Metric Picker** | Choose which metrics to score on |
-| **Run Button** | Sends to backend, shows loading state |
-| **Results Panel** | Side-by-side model responses with scores |
-| **Score Bars** | Visual progress bars for each metric score |
-| **Copy Button** | One-click copy for each model's response |
+1. Open `http://localhost:8000` in your browser
+2. Type your prompt in the text box
+3. Select which models to evaluate
+4. Select which metrics to score on
+5. Click **Run Evaluation** or press **Ctrl+Enter**
+6. Wait 10–20 seconds for results
+7. See side-by-side responses with scores
 
 ---
 
-## 🎨 Design Principles
+## 🎨 Design Decisions
 
-- **No login required** — open and use
-- **Mobile friendly** — works on phone too
-- **Dark mode supported** — respects system preference
-- **Zero frameworks** — plain HTML/CSS/JS, no React/Vue needed
+- **Dark theme** — easier on the eyes for developers
+- **No framework** — plain HTML/CSS/JS, zero setup for contributors
+- **Served through FastAPI** — avoids CORS issues with file:// protocol
+- **Mobile responsive** — works on phone screens too
 
 ---
 
 ## ✅ Phase 3 Checklist
 
-- [ ] `index.html` opens in browser without errors
-- [ ] Prompt can be typed and submitted
-- [ ] Results show up for each selected model
-- [ ] Scores render as visual bars
-- [ ] Works on mobile screen size
-- [ ] Loading spinner shows while waiting for API
+- [x] UI opens at `http://localhost:8000`
+- [x] Prompt can be typed and submitted
+- [x] Results show for each selected model
+- [x] Scores render as visual bars
+- [x] Sentiment shows as colored badge
+- [x] Copy button works
+- [x] Ctrl+Enter shortcut works
+- [x] Mobile responsive layout
 
 ---
 
-## 📸 Screenshots
+## 🤝 Good First Issues for Contributors
 
-> Add screenshots here after building the UI. This is important for your README and GitHub social preview!
-
----
+- Add dark/light mode toggle button
+- Add export results as CSV
+- Add response word count comparison chart
+- Improve mobile layout
+- Add loading skeleton instead of text spinner
+- Add prompt history (last 5 prompts dropdown)
+- Add character counter for prompt input
 
 ## ➡️ Next: [Phase 4 — Open Source Polish](../phase-4/README.md)
 ## ⬅️ Prev: [Phase 2 — FastAPI Backend](../phase-2/README.md)
-
----
-
-## 🤝 Contributing to Phase 3
-
-**Good first issues for this phase:**
-- Add a dark/light mode toggle button
-- Add export results as CSV
-- Add a "share results" link generator
-- Improve mobile layout
-- Add keyboard shortcut (Ctrl+Enter) to run

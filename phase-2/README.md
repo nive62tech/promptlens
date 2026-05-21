@@ -1,91 +1,70 @@
 # 🌐 Phase 2 — FastAPI Backend
 
-> **Goal:** Wrap the Phase 1 core engine in a clean REST API using FastAPI. This turns PromptLens from a script into a real service that any frontend can talk to.
+> **Goal:** Wrap the Phase 1 core engine in a clean REST API using FastAPI.
 
 ---
 
-## 📦 What You'll Build
+## ✅ What Was Built
 
 | Endpoint | Method | What It Does |
 |---|---|---|
-| `/evaluate` | POST | Send a prompt, get back scores from all models |
-| `/models` | GET | List all available LLM connectors |
-| `/metrics` | GET | List all available metrics |
-| `/health` | GET | Health check — is the server running? |
+| `/health` | GET | Returns server status |
+| `/models` | GET | Lists available LLM connectors |
+| `/metrics` | GET | Lists available metrics |
+| `/evaluate` | POST | Sends prompt, returns scored results |
+| `/docs` | GET | Auto-generated API documentation |
 
 ---
 
-## 🗂️ Folder Structure (Phase 2)
-
-```
-promptlens/
-├── backend/
-│   ├── main.py           ← FastAPI app lives here
-│   ├── runner.py
-│   ├── models/
-│   │   └── schemas.py    ← Pydantic request/response models
-│   ├── connectors/
-│   └── metrics/
-├── .env.example
-├── requirements.txt
-└── README.md
-```
+## 🗂️ Files Added in This Phase
+backend/
+├── main.py              ← FastAPI app
+└── models/
+├── init.py
+└── schemas.py       ← Pydantic request/response models
 
 ---
 
 ## ⚙️ Setup
 
-Make sure Phase 1 is working first, then:
-
 ```bash
-pip install fastapi uvicorn
+# Install dependencies
+pip install fastapi uvicorn aiofiles
 
-# Run the API server
-uvicorn backend.main:app --reload --port 8000
+# Run the server
+python -m uvicorn backend.main:app --reload --port 8000
 ```
 
-Server will start at: `http://localhost:8000`
-
-API docs (auto-generated): `http://localhost:8000/docs`
+Server runs at: `http://localhost:8000`
+API docs at: `http://localhost:8000/docs`
 
 ---
 
-## 📡 API Usage
-
-### Evaluate a Prompt
+## 📡 Sample Request
 
 ```bash
 curl -X POST http://localhost:8000/evaluate \
   -H "Content-Type: application/json" \
   -d '{
     "prompt": "Explain black holes in simple terms",
-    "models": ["gpt-3.5-turbo", "gemini-pro"],
+    "models": ["qwen-7b"],
     "metrics": ["length", "readability", "sentiment"]
   }'
 ```
 
-### Sample Response
+## 📡 Sample Response
 
 ```json
 {
   "prompt": "Explain black holes in simple terms",
   "results": [
     {
-      "model": "gpt-3.5-turbo",
+      "model": "qwen-7b",
       "response": "A black hole is a region in space...",
       "scores": {
-        "length": 78,
-        "readability": 82,
-        "sentiment": "neutral"
-      }
-    },
-    {
-      "model": "gemini-pro",
-      "response": "Black holes are formed when...",
-      "scores": {
-        "length": 91,
-        "readability": 70,
-        "sentiment": "neutral"
+        "length": {"words": 156, "chars": 880},
+        "readability": {"flesch_reading_ease": 64.5, "grade_level": 8.5},
+        "sentiment": {"label": "neutral", "score": 0.073}
       }
     }
   ]
@@ -94,33 +73,31 @@ curl -X POST http://localhost:8000/evaluate \
 
 ---
 
+## 🔐 Security
+
+- API keys loaded from `.env` — never hardcoded
+- No prompt data is logged or stored
+- CORS configured to allow all origins in dev mode
+
+---
+
 ## ✅ Phase 2 Checklist
 
-- [ ] FastAPI server starts without errors
-- [ ] `/health` returns `{"status": "ok"}`
-- [ ] `/evaluate` returns results for at least 2 models
-- [ ] `/docs` page renders correctly
-- [ ] Pydantic schemas validate bad inputs properly
+- [x] FastAPI server starts without errors
+- [x] `/health` returns `{"status": "ok"}`
+- [x] `/evaluate` returns results with scores
+- [x] `/docs` page renders correctly
+- [x] Pydantic schemas validate requests
 
 ---
 
-## 🔐 Security Notes
+## 🤝 Good First Issues for Contributors
 
-- API keys are loaded from `.env` — never hardcoded
-- No prompt data is logged or stored
-- CORS is configured to allow only localhost in dev mode
-
----
-
-## ➡️ Next: [Phase 3 — Web UI](../phase-3/README.md)
-## ⬅️ Prev: [Phase 1 — Core Engine](../phase-1/README.md)
-
----
-
-## 🤝 Contributing to Phase 2
-
-**Good first issues for this phase:**
 - Add request rate limiting
 - Add a `/history` endpoint (session-based, local only)
 - Add response caching to avoid duplicate API calls
 - Add input validation for prompt length limits
+- Write unit tests for all endpoints
+
+## ➡️ Next: [Phase 3 — Web UI](../phase-3/README.md)
+## ⬅️ Prev: [Phase 1 — Core Engine](../phase-1/README.md)
