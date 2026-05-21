@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from backend.models.schemas import EvaluateRequest, EvaluateResponse
 from backend.runner import run_evaluation
+import os
 
 app = FastAPI(
     title="PromptLens API",
@@ -32,3 +35,6 @@ def list_metrics():
 def evaluate(request: EvaluateRequest):
     results = run_evaluation(request.prompt, request.models, request.metrics)
     return EvaluateResponse(prompt=request.prompt, results=results)
+
+# Serve frontend — must be last
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

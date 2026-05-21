@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PromptLens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">🔬 PromptLens</div>
+    <div class="tagline">Local-first LLM Prompt Evaluator</div>
+  </header>
+
+  <main>
+
+    <!-- Prompt Input -->
+    <section class="card">
+      <label>Your Prompt</label>
+      <textarea id="prompt" rows="4" placeholder="e.g. Explain black holes in simple terms..."></textarea>
+    </section>
+
+    <!-- Model Selector -->
+    <section class="card">
+      <label>Select Models</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="qwen-7b" checked /> Qwen 2.5 7B (HuggingFace)</label>
+        <label><input type="checkbox" value="gemini-pro" /> Gemini Pro</label>
+      </div>
+    </section>
+
+    <!-- Metric Selector -->
+    <section class="card">
+      <label>Select Metrics</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="length" checked /> Length</label>
+        <label><input type="checkbox" value="readability" checked /> Readability</label>
+        <label><input type="checkbox" value="sentiment" checked /> Sentiment</label>
+      </div>
+    </section>
+
+    <!-- Run Button -->
+    <button id="runBtn" onclick="runEvaluation()">▶ Run Evaluation</button>
+
+    <!-- Loading -->
+    <div id="loading" class="hidden">
+      ⏳ Evaluating... this may take 10–20 seconds
+    </div>
+
+    <!-- Results -->
+    <div id="results"></div>
+
+  </main>
+
+  <footer>
+    PromptLens — Open Source · MIT License ·
+    <a href="https://github.com/YOUR_USERNAME/promptlens" target="_blank">GitHub</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
