@@ -137,10 +137,18 @@ function copyText(id) {
   }
 }
 
-// Allow Ctrl+Enter to run
-document.addEventListener("keydown", (e) => {
-  if (e.ctrlKey && e.key === "Enter") runEvaluation();
-});
+// Allow Ctrl+Enter to run while typing inside the prompt box
+const promptInput = document.getElementById("prompt");
+if (promptInput) {
+  promptInput.addEventListener("keydown", (e) => {
+    // Check if the user presses Enter while holding down the Ctrl key
+    if (e.ctrlKey && e.key === "Enter") {
+      e.preventDefault(); // Stop a new line from being added in the textarea
+      // Trigger the evaluation directly
+      runEvaluation();
+    } 
+  });
+}
 
 const THEME_KEY = "promptlens-theme";
 
